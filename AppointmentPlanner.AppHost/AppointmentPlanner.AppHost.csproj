@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppointmentPlanner.Api\AppointmentPlanner.Api.csproj" />
     <ProjectReference Include="..\AppointmentPlanner\AppointmentPlanner.csproj" />
   </ItemGroup>
 

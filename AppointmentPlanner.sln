@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.3.11512.155 d18.3
+VisualStudioVersion = 18.3.11512.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentPlanner", "AppointmentPlanner\AppointmentPlanner.csproj", "{55D330CF-4218-467B-81B7-90EDDDC26D6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentPlanner.AppHost", "AppointmentPlanner.AppHost\AppointmentPlanner.AppHost.csproj", "{43D10B58-B825-48E8-A5F3-A0B61D3502BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentPlanner.Api", "AppointmentPlanner.Api\AppointmentPlanner.Api.csproj", "{2F510CDD-6BA2-F531-4896-6D7EDC551558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{43D10B58-B825-48E8-A5F3-A0B61D3502BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D10B58-B825-48E8-A5F3-A0B61D3502BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D10B58-B825-48E8-A5F3-A0B61D3502BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F510CDD-6BA2-F531-4896-6D7EDC551558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F510CDD-6BA2-F531-4896-6D7EDC551558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F510CDD-6BA2-F531-4896-6D7EDC551558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F510CDD-6BA2-F531-4896-6D7EDC551558}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
