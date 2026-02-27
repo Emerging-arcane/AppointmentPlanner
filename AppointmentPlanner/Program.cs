@@ -20,6 +20,12 @@ builder.Services.AddSwaggerGen();
 // Add controllers if you want to create API endpoints
 builder.Services.AddControllers();
 
+builder.Services.AddHttpClient("Api", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7026"); // your API URL
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

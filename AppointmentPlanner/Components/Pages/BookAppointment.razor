@@ -1,0 +1,80 @@
+﻿@page "/book-appointment"
+
+@using AppointmentPlanner.Data
+@using AppointmentPlanner.Models
+@inject IHttpClientFactory ClientFactory
+
+
+<h3>Book Appointment</h3>
+
+<div class="appointment-form">
+    <EditForm Model="@appointment" OnValidSubmit="SaveAppointmentPlanner">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="appointment.Name" />
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <InputText class="form-control" @bind-Value="appointment.Email" />
+        </div>
+
+        <div class="form-group">
+            <label>Cell Number</label>
+            <InputText class="form-control" @bind-Value="appointment.CellNumber" />
+        </div>
+
+        <div class="form-group">
+            <label>Appointment Date</label>
+            <InputDate class="form-control" @bind-Value="appointment.AppointmentDate" />
+        </div>
+
+        <div class="form-group">
+            <label>Appointment Time</label>
+            <InputDate class="form-control" @bind-Value="appointment.AppointmentTime" />
+        </div>
+
+        <div class="form-group">
+            <label>Has Business?</label>
+            <InputCheckbox @bind-Value="appointment.HasBusiness" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save</button>
+    </EditForm>
+
+    @if (message != null)
+    {
+        <p>@message</p>
+    }
+</div>
+
+@code {
+    private AppointmentRequest appointment = new();
+    private string? message;
+
+    private async Task SaveAppointmentPlanner()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("Api");
+
+            var response = await client.PostAsJsonAsync("/api/appointments", appointment);
+
+            if (response.IsSuccessStatusCode)
+            {
+                message = "Appointment saved successfully!";
+            }
+            else
+            {
+                message = "Error saving appointment.";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = "Error saving appointment.";
+        }
+    }
+}

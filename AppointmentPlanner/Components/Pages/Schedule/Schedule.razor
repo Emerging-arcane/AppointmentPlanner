@@ -18,14 +18,14 @@
                             <FieldSubject Name="Name"></FieldSubject>
                             <FieldStartTime Name="StartTime" Title="From"></FieldStartTime>
                             <FieldEndTime Name="EndTime" Title="To"></FieldEndTime>
-                            <FieldDescription Name="Symptoms" Title="Symptoms"></FieldDescription>
+                            <FieldDescription Name="Symptoms" Title="Message"></FieldDescription>
                         </ScheduleField>
                     </ScheduleEventSettings>
                     <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
-                    <ScheduleResources>
+                    @* <ScheduleResources>
                         <ScheduleResource TItem="Specialization" TValue="int?" DataSource="@specialistCategory" Field="DepartmentId" Title="Department" Name="Departments" TextField="Text" IdField="DepartmentId" ColorField="Color"></ScheduleResource>
                         <ScheduleResource TItem="Doctor" TValue="int" DataSource="@resourceDataSource" Query="@queryData" Field="DoctorId" Title="Consultation" Name="Doctors" TextField="Name" IdField="Id" ColorField="Color" GroupIDField="DepartmentId" WorkDaysField="AvailableDays" StartHourField="StartHour" EndHourField="EndHour"></ScheduleResource>
-                    </ScheduleResources>
+                    </ScheduleResources> *@
                     <ScheduleViews>
                         <ScheduleView Option="@View.Day"></ScheduleView>
                         <ScheduleView Option="@View.Week"></ScheduleView>

@@ -9,14 +9,14 @@ namespace AppointmentPlanner.Api.Endpoints
     {
         public static void Map(IEndpointRouteBuilder app)
         {
-            app.MapPost("/api/appointments", HandleAsync)
+            app.MapPost("/api/appointments", SaveAppointmentAsync)
                 .WithName("SaveAppointment")
                 .WithTags("Appointments")
                 .Produces<AppointmentResponse>(StatusCodes.Status201Created)
                 .Produces<ValidationProblem>(StatusCodes.Status400BadRequest);
         }
 
-        private static async Task<Results<Created<AppointmentResponse>, ValidationProblem>> HandleAsync(
+        public static async Task<Results<Created<AppointmentResponse>, ValidationProblem>> SaveAppointmentAsync(
             SaveAppointmentRequest request,
             AppointmentPlannerDbContext db,
             CancellationToken cancellationToken)
@@ -58,6 +58,7 @@ namespace AppointmentPlanner.Api.Endpoints
     }
 
     public record SaveAppointmentRequest(
+        int id,
         string Name,
         string Email,
         string CellNumber,
