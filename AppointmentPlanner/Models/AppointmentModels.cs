@@ -25,6 +25,7 @@ namespace AppointmentPlanner.Models
         public string StartTimezone { get; set; }
         public string EndTimezone { get; set; }
         public string Location { get; set; }
+        public bool HasBusiness { get; set; }
 
         public Hospital() { }
 

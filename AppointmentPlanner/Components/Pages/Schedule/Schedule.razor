@@ -47,6 +47,51 @@
                         <DateHeaderTemplate>
                             <div class="e-custom-date-header date-text" title="@(getDateHeaderText((context as TemplateContext).Date))">@(getDateHeaderText((context as TemplateContext).Date).ToUpper())</div>
                         </DateHeaderTemplate>
+                        <EditorTemplate>
+                            @{
+                                var appointment = context as Hospital;
+                            }
+                            <table class="custom-event-editor" style="width: 100%; padding: 15px;">
+                                <tbody>
+                                    <tr>
+                                        <td class="e-textlabel">Name</td>
+                                        <td colspan="4">
+                                            <input id="Name" class="e-field e-input" type="text" name="Name" @bind="@appointment.Name" style="width: 100%" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel">From</td>
+                                        <td colspan="4">
+                                            <SfDateTimePicker TValue="DateTime" ID="StartTime" @bind-Value="@appointment.StartTime" CssClass="e-field"></SfDateTimePicker>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel">To</td>
+                                        <td colspan="4">
+                                            <SfDateTimePicker TValue="DateTime" ID="EndTime" @bind-Value="@appointment.EndTime" CssClass="e-field"></SfDateTimePicker>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel">Number of taxes</td>
+                                        <td colspan="4">
+                                            <input id="Location" class="e-field e-input" type="text" name="Location" @bind="@appointment.Location" style="width: 100%" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel">Message</td>
+                                        <td colspan="4">
+                                            <textarea id="Symptoms" class="e-field e-input" name="Symptoms" rows="3" @bind="@appointment.Symptoms" style="width: 100%; resize: vertical;"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel">Has Business</td>
+                                        <td colspan="4">
+                                            <SfCheckBox TChecked="bool" @bind-Checked="@appointment.HasBusiness"></SfCheckBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </EditorTemplate>
                     </ScheduleTemplates>
                 </SfSchedule>
             </div>
