@@ -48,9 +48,10 @@
                             <div class="e-custom-date-header date-text" title="@(getDateHeaderText((context as TemplateContext).Date))">@(getDateHeaderText((context as TemplateContext).Date).ToUpper())</div>
                         </DateHeaderTemplate>
                         <EditorTemplate>
-                            @{
-                                var appointment = context as Hospital;
-                            }
+                                @{
+                                    var appointment = context as Hospital;
+
+                                }
                             <table class="custom-event-editor" style="width: 100%; padding: 15px;">
                                 <tbody>
                                     <tr>
@@ -77,6 +78,15 @@
                                             <input id="Location" class="e-field e-input" type="text" name="Location" @bind="@appointment.Location" style="width: 100%" />
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td class="e-textlabel">Timezone</td>
+                                        <td colspan="4">
+                                            <SfDropDownList TValue="string" TItem="TimezoneOption" @bind-Value="@appointment.StartTimezone" 
+                                                            DataSource="@timezones" Placeholder="Select timezone" CssClass="e-field" AllowFiltering="true" ShowClearButton="true">
+                                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                            </SfDropDownList>
+                                        </td>
+                                    </tr>                                
                                     <tr>
                                         <td class="e-textlabel">Message</td>
                                         <td colspan="4">
@@ -206,6 +216,9 @@ else{
     private List<Doctor> activeDoctorData { get; set; }
     private bool isDataLoaded;
     private int? draggedItemID = null;
+
+    private List<TimezoneOption> timezones;
+
     protected override void OnInitialized()
     {
         sceduleView = (View)Enum.Parse(typeof(View), (Service.CalendarSettings.CurrentView as string));
@@ -218,6 +231,11 @@ else{
         this.specialistCategory = Service.Specializations;
         this.startHour = Service.CalendarSettings.Calendar.Start;
         this.endHour = Service.CalendarSettings.Calendar.End;
+
+        // Dynamically populate timezones from system
+        timezones = TimeZoneInfo.GetSystemTimeZones()
+            .Select(tz => new TimezoneOption { Text = tz.DisplayName, Value = tz.Id })
+            .ToList();
     }
 
     private string getEventTime(WaitingList data)
@@ -480,5 +498,11 @@ else{
         {
         LoadData();
         }
+    }
+
+    public class TimezoneOption
+    {
+        public string Text { get; set; }
+        public string Value { get; set; }
     }
 }
