@@ -26,6 +26,10 @@ namespace AppointmentPlanner.Models
         public string EndTimezone { get; set; }
         public string Location { get; set; }
         public bool HasBusiness { get; set; }
+        public bool BringToOffice { get; set; }
+        public bool SendViaEmail { get; set; }
+        public bool BothSubmissionMethods { get; set; }
+
 
         public Hospital() { }
 

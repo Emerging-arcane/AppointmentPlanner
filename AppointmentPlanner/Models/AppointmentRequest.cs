@@ -9,5 +9,9 @@
         public DateTime AppointmentDate { get; set; }
         public DateTime AppointmentTime { get; set; }
         public bool HasBusiness { get; set; } = false;
+        public bool BringToOffice { get; set; } = false;
+        public bool EmailDocuments { get; set; } = false;
+        public bool BothMethods { get; set; } = false;
+
     }
 }

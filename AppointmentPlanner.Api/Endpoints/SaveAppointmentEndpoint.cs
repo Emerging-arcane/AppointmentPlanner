@@ -30,9 +30,9 @@ namespace AppointmentPlanner.Api.Endpoints
 
             using var command = connection.CreateCommand();
             command.CommandText = @"
-                INSERT INTO Appointments (Name, Email, CellNumber, AppointmentDate, AppointmentTime, HasBusiness)
+                INSERT INTO Appointments (Name, Email, CellNumber, AppointmentDate, AppointmentTime, HasBusiness,BringToOffice, EmailDocuments, BothMethods )
                 OUTPUT INSERTED.Id
-                VALUES (@Name, @Email, @CellNumber, @AppointmentDate, @AppointmentTime, @HasBusiness)";
+                VALUES (@Name, @Email, @CellNumber, @AppointmentDate, @AppointmentTime, @HasBusiness, @BringToOffice, @EmailDocuments, @BothMethods)";
 
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Name", request.Name));
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@Email", request.Email));
@@ -40,6 +40,10 @@ namespace AppointmentPlanner.Api.Endpoints
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AppointmentDate", request.AppointmentDate));
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@AppointmentTime", request.AppointmentTime));
             command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@HasBusiness", request.HasBusiness));
+            command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@BringToOffice", request.BringToOffice));
+            command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@EmailDocuments", request.EmailDocuments));
+            command.Parameters.Add(new Microsoft.Data.SqlClient.SqlParameter("@BothMethods", request.BothMethods));
+
 
             var id = (int)await command.ExecuteScalarAsync(cancellationToken);
 
@@ -50,7 +54,10 @@ namespace AppointmentPlanner.Api.Endpoints
                 request.CellNumber,
                 request.AppointmentDate,
                 request.AppointmentTime,
-                request.HasBusiness
+                request.HasBusiness,
+                request.BringToOffice,
+                request.EmailDocuments,
+                request.BothMethods
             );
 
             return TypedResults.Created($"/api/appointments/{id}", response);
@@ -64,7 +71,10 @@ namespace AppointmentPlanner.Api.Endpoints
         string CellNumber,
         DateTime AppointmentDate,
         DateTime AppointmentTime,
-        bool HasBusiness
+        bool HasBusiness,
+        bool BringToOffice,
+        bool EmailDocuments,
+        bool BothMethods
     );
 
     public record AppointmentResponse(
@@ -74,7 +84,10 @@ namespace AppointmentPlanner.Api.Endpoints
         string CellNumber,
         DateTime AppointmentDate,
         DateTime AppointmentTime,
-        bool HasBusiness
+        bool HasBusiness,
+        bool BringToOffice,
+        bool EmailDocuments,
+        bool BothMethods
     );
 
     public interface IEndpoint

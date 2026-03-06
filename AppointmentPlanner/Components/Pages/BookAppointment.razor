@@ -29,17 +29,34 @@
 
         <div class="form-group">
             <label>Appointment Date</label>
-            <InputDate class="form-control" @bind-Value="appointment.AppointmentDate" />
+            <InputDate class="form-control" @bind-Value="appointment.AppointmentDate" min="@minDate" />
+            <ValidationMessage For="@(() => appointment.AppointmentDate)" />
         </div>
 
         <div class="form-group">
             <label>Appointment Time</label>
-            <InputDate class="form-control" @bind-Value="appointment.AppointmentTime" />
+            <input type="time" class="form-control" @bind="appointmentTimeOnly" @bind:event="oninput" />
         </div>
 
         <div class="form-group">
             <label>Has Business?</label>
             <InputCheckbox @bind-Value="appointment.HasBusiness" />
+        </div>
+
+        <div class="form-group">
+            <label>Document Submission Method:</label>
+            <div>
+                <InputCheckbox @bind-Value="appointment.BringToOffice" id="bringToOffice" />
+                <label for="bringToOffice">Bring to the office</label>
+            </div>
+            <div>
+                <InputCheckbox @bind-Value="appointment.EmailDocuments" id="emailDocuments" />
+                <label for="emailDocuments">Email documents</label>
+            </div>
+            <div>
+                <InputCheckbox @bind-Value="appointment.BothMethods" id="bothMethods" />
+                <label for="bothMethods">Both</label>
+            </div>
         </div>
 
         <button class="btn btn-primary" type="submit">Save</button>
@@ -54,9 +71,28 @@
 @code {
     private AppointmentRequest appointment = new();
     private string? message;
+    private string minDate = DateTime.Now.ToString("yyyy-MM-dd");
+    private TimeOnly appointmentTimeOnly = TimeOnly.FromDateTime(DateTime.Now);
+
+    protected override void OnInitialized()
+    {
+        // Initialize with current date and time
+        appointment.AppointmentDate = DateTime.Today;
+        appointment.AppointmentTime = DateTime.Now;
+    }
 
     private async Task SaveAppointmentPlanner()
     {
+        // Combine date and time
+        appointment.AppointmentTime = appointment.AppointmentDate.Date.Add(appointmentTimeOnly.ToTimeSpan());
+        
+        // Validate that appointment is in the future
+        if (appointment.AppointmentTime <= DateTime.Now)
+        {
+            message = "Please select a future date and time.";
+            return;
+        }
+
         try
         {
             var client = ClientFactory.CreateClient("Api");

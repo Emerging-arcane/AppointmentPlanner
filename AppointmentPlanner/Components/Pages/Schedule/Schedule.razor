@@ -22,10 +22,10 @@
                         </ScheduleField>
                     </ScheduleEventSettings>
                     <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
-                    @* <ScheduleResources>
+                    <ScheduleResources>
                         <ScheduleResource TItem="Specialization" TValue="int?" DataSource="@specialistCategory" Field="DepartmentId" Title="Department" Name="Departments" TextField="Text" IdField="DepartmentId" ColorField="Color"></ScheduleResource>
                         <ScheduleResource TItem="Doctor" TValue="int" DataSource="@resourceDataSource" Query="@queryData" Field="DoctorId" Title="Consultation" Name="Doctors" TextField="Name" IdField="Id" ColorField="Color" GroupIDField="DepartmentId" WorkDaysField="AvailableDays" StartHourField="StartHour" EndHourField="EndHour"></ScheduleResource>
-                    </ScheduleResources> *@
+                    </ScheduleResources>
                     <ScheduleViews>
                         <ScheduleView Option="@View.Day"></ScheduleView>
                         <ScheduleView Option="@View.Week"></ScheduleView>
@@ -97,6 +97,22 @@
                                         <td class="e-textlabel">Has Business</td>
                                         <td colspan="4">
                                             <SfCheckBox TChecked="bool" @bind-Checked="@appointment.HasBusiness"></SfCheckBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="e-textlabel" style="vertical-align: top; padding-top: 8px;">Document Submission Method</td>
+                                        <td colspan="4">
+                                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                                <div>
+                                                    <SfCheckBox TChecked="bool" @bind-Checked="@appointment.BringToOffice" Label="Submit physical copy at office"></SfCheckBox>
+                                                </div>
+                                                <div>
+                                                    <SfCheckBox TChecked="bool" @bind-Checked="@appointment.SendViaEmail" Label="Send via email"></SfCheckBox>
+                                                </div>
+                                                <div>
+                                                    <SfCheckBox TChecked="bool" @bind-Checked="@appointment.BothSubmissionMethods" Label="Both"></SfCheckBox>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
